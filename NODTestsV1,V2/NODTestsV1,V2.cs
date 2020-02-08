@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Algorithms.V1.StaticClasses;
 using Algorithms.V2.GcdImplementations;
 using Algorithms.V2.Interfaces;
@@ -81,6 +82,31 @@ namespace NODTestsV1_V2
             Assert.Throws<ArgumentException>(() => GCDAlgorithms.FindGcdByStein(vs));
 
 
+        #endregion
+
+        #region SpeedTests
+
+        [Test]
+        public void SpeedTestV1_EuclideanIsFaster()
+        {
+            int[] arr = Enumerable.Range(1, 100_000).ToArray();
+            long euclideanMilliseconds;
+            long steinMilliseconds;
+            GCDAlgorithms.FindGcdByEuclidean(out euclideanMilliseconds, arr);
+            GCDAlgorithms.FindGcdByStein(out steinMilliseconds, arr);
+            Assert.IsTrue(steinMilliseconds>euclideanMilliseconds);
+        }
+
+        [Test]
+        public void SpeedTestV2_EuclideanIsFaster()
+        {
+            int[] arr = Enumerable.Range(1, 100_000).ToArray();
+            long euclideanMilliseconds;
+            long steinMilliseconds;
+            ((IAlgorithm) (new EuclideanAlgorithm())).Calculate(out euclideanMilliseconds, arr);
+            ((IAlgorithm)(new SteinAlgorithm())).Calculate(out steinMilliseconds, arr);
+            Assert.IsTrue(steinMilliseconds > euclideanMilliseconds);
+        }
         #endregion
 
         #region EuclideanTestsV2

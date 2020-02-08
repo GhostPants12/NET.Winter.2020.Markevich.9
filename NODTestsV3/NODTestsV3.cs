@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Algorithms.V3.GcdImplementations;
 using NUnit.Framework;
 
@@ -6,7 +7,7 @@ namespace NODTestsV3
 {
     public class Tests
     {
-        #region EuclideanTestsV1
+        #region EuclideanTestsV3
 
 
         [TestCase(3, 15, ExpectedResult = 3)]
@@ -55,7 +56,7 @@ namespace NODTestsV3
 
         #endregion
 
-        #region SteinTestsV1
+        #region SteinTestsV3
 
 
         [TestCase(3, 15, ExpectedResult = 3)]
@@ -101,6 +102,25 @@ namespace NODTestsV3
         public void GetGcdBySteinV3_WithAllZeroParameters_ThrowsArgumentException(params int[] vs) =>
             Assert.Throws<ArgumentException>(() => new Algorithm(new SteinAlgorithm()).Calculate(vs));
 
+
+        #endregion
+
+        #region SpeedTest
+
+        [Test]
+        public void SpeedTestV3_EuclideanIsFaster()
+        {
+            EuclideanAlgorithm euclideanAlgorithm = new EuclideanAlgorithm();
+            SteinAlgorithm steinAlgorithm = new SteinAlgorithm();
+            Algorithm euclidean = new Algorithm(euclideanAlgorithm);
+            Algorithm stein = new Algorithm(steinAlgorithm);
+            long steinMilliseconds;
+            long euclideanMilliseconds;
+            int[] arr = Enumerable.Range(1, 100_000).ToArray();
+            stein.Calculate(out steinMilliseconds, arr);
+            euclidean.Calculate(out euclideanMilliseconds, arr);
+            Assert.IsTrue(euclideanMilliseconds<steinMilliseconds);
+        }
 
         #endregion
     }

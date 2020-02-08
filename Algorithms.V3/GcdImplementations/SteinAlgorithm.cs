@@ -7,6 +7,10 @@ namespace Algorithms.V3.GcdImplementations
 {
     public class SteinAlgorithm : IAlgorithm
     {
+        /// <summary>Calculates the gcd of two values by Stein algorithm.</summary>
+        /// <param name="first">The first value.</param>
+        /// <param name="second">The second value.</param>
+        /// <returns>The gcd of two values.</returns>
         public int Calculate(int first, int second)
         {
             int firstNumberAbs = Math.Abs(first);

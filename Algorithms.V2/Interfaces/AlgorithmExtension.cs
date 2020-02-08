@@ -6,6 +6,13 @@ namespace Algorithms.V2.Interfaces
 {
     public static class AlgorithmExtension
     {
+        /// <summary>The extension method to get the gcd of two numbers and required time.</summary>
+        /// <param name="algorithm">The algorithm to extend.</param>
+        /// <param name="first">The first value.</param>
+        /// <param name="second">The second value.</param>
+        /// <param name="milliseconds">The required time in milliseconds.</param>
+        /// <returns>The gcd of two values.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when algorithm is null.</exception>
         public static int Calculate(this IAlgorithm algorithm, int first, int second, out long milliseconds)
         {
             if (algorithm == null)
@@ -20,6 +27,13 @@ namespace Algorithms.V2.Interfaces
             return result;
         }
 
+        /// <summary>The extension method to get the gcd of three numbers.</summary>
+        /// <param name="algorithm">The algorithm to extend.</param>
+        /// <param name="first">The first value.</param>
+        /// <param name="second">The second value.</param>
+        /// <param name="third">The third value.</param>
+        /// <returns>The gcd of three values.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when algorithm is null.</exception>
         public static int Calculate(this IAlgorithm algorithm, int first, int second, int third)
         {
             if (algorithm == null)
@@ -30,6 +44,14 @@ namespace Algorithms.V2.Interfaces
             return algorithm.Calculate(algorithm.Calculate(first, second), third);
         }
 
+        /// <summary>The extension method to get the gcd of three numbers and the required time.</summary>
+        /// <param name="algorithm">The algorithm to extend.</param>
+        /// <param name="first">The first value.</param>
+        /// <param name="second">The second value.</param>
+        /// <param name="third">The third value.</param>
+        /// <param name="milliseconds">The required time in milliseconds.</param>
+        /// <returns>The gcd of three values.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when algorithm is null.</exception>
         public static int Calculate(this IAlgorithm algorithm, int first, int second, int third, out long milliseconds)
         {
             if (algorithm == null)
@@ -44,6 +66,11 @@ namespace Algorithms.V2.Interfaces
             return result;
         }
 
+        /// <summary>The extension method to get the gcd of the array of numbers.</summary>
+        /// <param name="algorithm">The algorithm to extend.</param>
+        /// <param name="numbers">The array of numbers.</param>
+        /// <returns>The gcd of the array of numbers.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when algorithm is null.</exception>
         public static int Calculate(this IAlgorithm algorithm, params int[] numbers)
         {
             if (algorithm == null)
@@ -60,6 +87,12 @@ namespace Algorithms.V2.Interfaces
             return bufGcd;
         }
 
+        /// <summary>The extension method to get the gcd of the array of numbers and the required time.</summary>
+        /// <param name="algorithm">The algorithm to extend.</param>
+        /// <param name="milliseconds">The required time in milliseconds.</param>
+        /// <param name="numbers">The array of numbers.</param>
+        /// <returns>The gcd of the array of numbers.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when algorithm is null.</exception>
         public static int Calculate(this IAlgorithm algorithm, out long milliseconds, params int[] numbers)
         {
             if (algorithm == null)
