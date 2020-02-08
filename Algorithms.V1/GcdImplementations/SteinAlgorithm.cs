@@ -13,6 +13,16 @@ namespace Algorithms.V1.GcdImplementations
         /// <returns>The gcd of two values.</returns>
         protected override int Func(int first, int second)
         {
+            if (first == int.MinValue)
+            {
+                throw new ArgumentOutOfRangeException($"{nameof(first)} is int.MinValue.");
+            }
+
+            if (second == int.MinValue)
+            {
+                throw new ArgumentOutOfRangeException($"{nameof(second)} is int.MinValue.");
+            }
+
             int firstNumberAbs = Math.Abs(first);
             int secondNumberAbs = Math.Abs(second);
             if (firstNumberAbs == 0)

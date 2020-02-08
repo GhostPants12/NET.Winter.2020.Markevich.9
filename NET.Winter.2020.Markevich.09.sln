@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Algorithms.V3", "Algorithms
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NODTestsV3", "NODTestsV3\NODTestsV3.csproj", "{48DE5FA6-3CFB-478A-8CC4-50BB35E29BEA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NODTestsV1,V2", "NODTestsV1,V2\NODTestsV1,V2.csproj", "{674F07E0-4E7A-471A-A10E-F31A5A4DBEDC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NODTestsV1,V2", "NODTestsV1,V2\NODTestsV1,V2.csproj", "{091C1E53-F5FB-4325-9DD1-518632B0A757}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,10 @@ Global
 		{48DE5FA6-3CFB-478A-8CC4-50BB35E29BEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48DE5FA6-3CFB-478A-8CC4-50BB35E29BEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48DE5FA6-3CFB-478A-8CC4-50BB35E29BEA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{674F07E0-4E7A-471A-A10E-F31A5A4DBEDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{674F07E0-4E7A-471A-A10E-F31A5A4DBEDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{674F07E0-4E7A-471A-A10E-F31A5A4DBEDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{674F07E0-4E7A-471A-A10E-F31A5A4DBEDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{091C1E53-F5FB-4325-9DD1-518632B0A757}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{091C1E53-F5FB-4325-9DD1-518632B0A757}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{091C1E53-F5FB-4325-9DD1-518632B0A757}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{091C1E53-F5FB-4325-9DD1-518632B0A757}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

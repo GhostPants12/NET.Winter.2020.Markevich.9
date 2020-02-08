@@ -9,12 +9,17 @@ namespace Algorithms.V3.GcdImplementations
         /// <param name="first">The first value.</param>
         /// <param name="second">The second value.</param>
         /// <returns>The gcd of two values.</returns>
-        /// <exception cref="ArgumentException">Two values cannot be zero at the same time.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">One of the values is int.MinValue.</exception>
         public int Calculate(int first, int second)
         {
-            if (first == 0 && second == 0)
+            if (first == int.MinValue)
             {
-                throw new ArgumentException("Two values cannot be zero at the same time.");
+                throw new ArgumentOutOfRangeException($"{nameof(first)} cannot be int.MinValue");
+            }
+
+            if (second == int.MinValue)
+            {
+                throw new ArgumentOutOfRangeException($"{nameof(second)} cannot be int.MinValue");
             }
 
             first = Math.Abs(first);

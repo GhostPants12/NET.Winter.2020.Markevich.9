@@ -77,6 +77,7 @@ namespace NODTestsV3
         [TestCase(-1, -2, -3, ExpectedResult = 1)]
         [TestCase(3, -3, 3, ExpectedResult = 3)]
         [TestCase(15, 5, 45, ExpectedResult = 5)]
+        [TestCase(0,0,1, ExpectedResult = 1)]
         public static int GetGcdBySteinV3_With3ValidParameters(int firstNumber, int secondNumber, int thirdNumber)
         {
             SteinAlgorithm steinAlgorithm = new SteinAlgorithm();
@@ -86,6 +87,7 @@ namespace NODTestsV3
 
         [TestCase(1, 1, 213124, -54654, -123124, 65765, 44444, -7, 1234567, int.MaxValue)]
         [TestCase(1, 123413, 943578, 123413, 943578, 943578, int.MaxValue)]
+        [TestCase(1, 0, 0, 0, 1)]
         public void GetGcdBySteinV3_WithManyValidParameters(int expectedResult, params int[] vs)
         {
             SteinAlgorithm steinAlgorithm = new SteinAlgorithm();

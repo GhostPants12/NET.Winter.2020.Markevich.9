@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using Algorithms.V1.GcdImplementations;
 using Algorithms.V1.Interfaces;
 
@@ -133,7 +134,8 @@ namespace Algorithms.V1.StaticClasses
         /// <returns>The gcd of three values.</returns>
         private static int Gcd(int first, int second, int third, Algorithm algorithm)
         {
-            return Gcd(Gcd(first, second, algorithm), third, algorithm);
+            CheckValues(first, second, third);
+            return algorithm.Calculate(algorithm.Calculate(first, second), third);
         }
 
         /// <summary>Calculates the gcd of three values and the required time.</summary>
@@ -145,11 +147,12 @@ namespace Algorithms.V1.StaticClasses
         /// <returns>The gcd of three values.</returns>
         private static int Gcd(int first, int second, int third, out long milliseconds, Algorithm algorithm)
         {
+            CheckValues(first, second, third);
             milliseconds = 0;
             long bufMilliseconds = 0;
-            int firstStepGcd = Gcd(first, second, out bufMilliseconds, algorithm);
+            int firstStepGcd = algorithm.Calculate(first, second, out bufMilliseconds);
             milliseconds += bufMilliseconds;
-            int result = Gcd(firstStepGcd, third, out bufMilliseconds, algorithm);
+            int result = algorithm.Calculate(firstStepGcd, third, out bufMilliseconds);
             milliseconds += bufMilliseconds;
             return result;
         }
@@ -160,10 +163,11 @@ namespace Algorithms.V1.StaticClasses
         /// <returns>The gcd of the array of numbers.</returns>
         private static int Gcd(Algorithm algorithm, params int[] numbers)
         {
-            int bufGcd = Gcd(numbers[0], numbers[1], algorithm);
+            CheckValues(numbers);
+            int bufGcd = algorithm.Calculate(numbers[0], numbers[1]);
             for (int i = 2; i < numbers.Length; i++)
             {
-                bufGcd = Gcd(bufGcd, numbers[i], algorithm);
+                bufGcd = algorithm.Calculate(bufGcd, numbers[i]);
             }
 
             return bufGcd;
@@ -176,13 +180,14 @@ namespace Algorithms.V1.StaticClasses
         /// <returns>The gcd of the array of numbers.</returns>
         private static int Gcd(Algorithm algorithm, out long milliseconds, params int[] numbers)
         {
+            CheckValues(numbers);
             milliseconds = 0;
             long bufMilliseconds = 0;
-            int bufGcd = Gcd(numbers[0], numbers[1], out bufMilliseconds, algorithm);
+            int bufGcd = algorithm.Calculate(numbers[0], numbers[1], out bufMilliseconds);
             milliseconds += bufMilliseconds;
             for (int i = 2; i < numbers.Length; i++)
             {
-                bufGcd = Gcd(bufGcd, numbers[i], out bufMilliseconds, algorithm);
+                bufGcd = algorithm.Calculate(bufGcd, numbers[i], out bufMilliseconds);
                 milliseconds += bufMilliseconds;
             }
 
@@ -192,26 +197,30 @@ namespace Algorithms.V1.StaticClasses
 
         #region CheckValues
 
-        /// <summary>Method to check if the values are correct.</summary>
-        /// <param name="first">The first value.</param>
-        /// <param name="second">The second value.</param>
-        /// <exception cref="ArgumentOutOfRangeException">One of the values is int.MinValue.</exception>
-        /// <exception cref="ArgumentException">Two values cannot be zero at the same time.</exception>
-        private static void CheckValues(int first, int second)
+
+        /// <summary>Checks the values.</summary>
+        /// <param name="values">The values.</param>
+        /// <exception cref="System.ArgumentException">All values cannot be zero
+        /// or There should be more than 1 argument.</exception>
+        private static void CheckValues(params int[] values)
         {
-            if (first == int.MinValue)
+            if (values.Length <= 1)
             {
-                throw new ArgumentOutOfRangeException($"{nameof(first)} is int.MinValue.");
+                throw new ArgumentException("There should be more than 1 argument.");
             }
 
-            if (second == int.MinValue)
+            int zeroCounter = 0;
+            for (int i = 0; i < values.Length; i++)
             {
-                throw new ArgumentOutOfRangeException($"{nameof(second)} is int.MinValue.");
+                if (values[i] == 0)
+                {
+                    zeroCounter++;
+                }
             }
 
-            if (first == 0 && second == 0)
+            if (zeroCounter == values.Length)
             {
-                throw new ArgumentException("Two values cannot be zero at the same time.");
+                throw new ArgumentException("All values cannot be zero");
             }
         }
         #endregion

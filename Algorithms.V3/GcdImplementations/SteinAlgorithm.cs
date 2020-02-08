@@ -11,8 +11,19 @@ namespace Algorithms.V3.GcdImplementations
         /// <param name="first">The first value.</param>
         /// <param name="second">The second value.</param>
         /// <returns>The gcd of two values.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">One of the values is int.MinValue.</exception>
         public int Calculate(int first, int second)
         {
+            if (first == int.MinValue)
+            {
+                throw new ArgumentOutOfRangeException($"{nameof(first)} cannot be int.MinValue");
+            }
+
+            if (second == int.MinValue)
+            {
+                throw new ArgumentOutOfRangeException($"{nameof(second)} cannot be int.MinValue");
+            }
+
             int firstNumberAbs = Math.Abs(first);
             int secondNumberAbs = Math.Abs(second);
             if (firstNumberAbs == 0)

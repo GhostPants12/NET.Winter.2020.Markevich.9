@@ -21,25 +21,8 @@ namespace Algorithms.V3.GcdImplementations
         /// <param name="first">The first value.</param>
         /// <param name="second">The second value.</param>
         /// <returns>The gcd of two values.</returns>
-        /// <exception cref="ArgumentOutOfRangeException">One of the arguments is int.MinValue.</exception>
-        /// <exception cref="ArgumentException">Two values cannot be zero at the same time.</exception>
         public int Calculate(int first, int second)
         {
-            if (first == int.MinValue)
-            {
-                throw new ArgumentOutOfRangeException($"{nameof(first)} is int.MinValue.");
-            }
-
-            if (second == int.MinValue)
-            {
-                throw new ArgumentOutOfRangeException($"{nameof(second)} is int.MinValue.");
-            }
-
-            if (first == 0 && second == 0)
-            {
-                throw new ArgumentException("Two values cannot be zero at the same time.");
-            }
-
             this.CheckValues(first, second);
             return this.algorithm.Calculate(first, second);
         }
@@ -49,10 +32,9 @@ namespace Algorithms.V3.GcdImplementations
         /// <param name="second">The second value.</param>
         /// <param name="milliseconds">The required time in milliseconds.</param>
         /// <returns>The gcd of two values.</returns>
-        /// <exception cref="ArgumentOutOfRangeException">One of the arguments is int.MinValue.</exception>
-        /// <exception cref="ArgumentException">Two values cannot be zero at the same time.</exception>
         public int Calculate(int first, int second, out long milliseconds)
         {
+            this.CheckValues(first, second);
             var startTime = System.Diagnostics.Stopwatch.StartNew();
             int result = this.Calculate(first, second);
             startTime.Stop();
@@ -67,7 +49,8 @@ namespace Algorithms.V3.GcdImplementations
         /// <returns>The gcd of three values.</returns>
         public int Calculate(int first, int second, int third)
         {
-            return this.Calculate(this.Calculate(first, second), third);
+            this.CheckValues(first, second, third);
+            return this.algorithm.Calculate(this.algorithm.Calculate(first, second), third);
         }
 
         /// <summary>Calculates the gcd of three values and the required time.</summary>
@@ -78,6 +61,7 @@ namespace Algorithms.V3.GcdImplementations
         /// <returns>The gcd of three values.</returns>
         public int Calculate(int first, int second, int third, out long milliseconds)
         {
+            this.CheckValues(first, second, third);
             var startTime = System.Diagnostics.Stopwatch.StartNew();
             int result = this.Calculate(first, second, third);
             startTime.Stop();
@@ -88,18 +72,13 @@ namespace Algorithms.V3.GcdImplementations
         /// <summary>Calculates the gcd of the array of numbers.</summary>
         /// <param name="numbers">The array of numbers.</param>
         /// <returns>The gcd of the array of numbers.</returns>
-        /// <exception cref="ArgumentException">There should be at least 2 numbers in the array.</exception>
         public int Calculate(params int[] numbers)
         {
-            if (numbers.Length <= 1)
-            {
-                throw new ArgumentException("There should be at least 2 arguments");
-            }
-
+            this.CheckValues(numbers);
             int bufGcd = this.algorithm.Calculate(numbers[0], numbers[1]);
             for (int i = 2; i < numbers.Length; i++)
             {
-                bufGcd = this.Calculate(bufGcd, numbers[i]);
+                bufGcd = this.algorithm.Calculate(bufGcd, numbers[i]);
             }
 
             return bufGcd;
@@ -109,9 +88,9 @@ namespace Algorithms.V3.GcdImplementations
         /// <param name="milliseconds">The required time in milliseconds.</param>
         /// <param name="numbers">The array of numbers.</param>
         /// <returns>The gcd of the array of numbers.</returns>
-        /// <exception cref="ArgumentException">There should be at least 2 numbers in the array.</exception>
         public int Calculate(out long milliseconds, params int[] numbers)
         {
+            this.CheckValues(numbers);
             var startTime = System.Diagnostics.Stopwatch.StartNew();
             int result = this.Calculate(numbers);
             startTime.Stop();
@@ -119,26 +98,30 @@ namespace Algorithms.V3.GcdImplementations
             return result;
         }
 
-        /// <summary>Checks if the values are correct.</summary>
-        /// <param name="first">The first.</param>
-        /// <param name="second">The second.</param>
-        /// <exception cref="ArgumentOutOfRangeException">One of the values is int.MinValue.</exception>
-        /// <exception cref="ArgumentException">Two values cannot be zero at the same time.</exception>
-        private void CheckValues(int first, int second)
+
+        /// <summary>Checks the values.</summary>
+        /// <param name="numbers">The numbers.</param>
+        /// <exception cref="System.ArgumentException">All values cannot be zero
+        /// or There should be at least 2 arguments.</exception>
+        private void CheckValues(params int[] numbers)
         {
-            if (first == int.MinValue)
+            if (numbers.Length <= 1)
             {
-                throw new ArgumentOutOfRangeException($"{nameof(first)} is int.MinValue.");
+                throw new ArgumentException("There should be more than 1 argument.");
             }
 
-            if (second == int.MinValue)
+            int zeroCounter = 0;
+            for (int i = 0; i < numbers.Length; i++)
             {
-                throw new ArgumentOutOfRangeException($"{nameof(second)} is int.MinValue.");
+                if (numbers[i] == 0)
+                {
+                    zeroCounter++;
+                }
             }
 
-            if (first == 0 && second == 0)
+            if (zeroCounter == numbers.Length)
             {
-                throw new ArgumentException("Two values cannot be zero at the same time.");
+                throw new ArgumentException("All values cannot be zero");
             }
         }
     }
