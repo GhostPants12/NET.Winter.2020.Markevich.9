@@ -5,10 +5,11 @@ using System.Text;
 
 namespace Notebook.Part1
 {
-    public sealed class NoteBookService : IView
+    public sealed class NoteBookService
     {
-        private static NoteBookService instance;
-        private NoteBook noteBook;
+        private static readonly NoteBookService instance;
+        private readonly NoteBookRenderer renderer;
+        private readonly NoteBook noteBook;
 
         /// <summary>Initializes static members of the <see cref="NoteBookService"/> class.</summary>
         static NoteBookService()
@@ -16,14 +17,16 @@ namespace Notebook.Part1
             instance = new NoteBookService();
         }
 
-        /// <summary>Prevents a default instance of the <see cref="NoteBookService"/> class from being created.</summary>
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NoteBookService"/> class.Prevents a default Instance of the <see cref="NoteBookService"/> class from being created.</summary>
         private NoteBookService()
         {
             this.noteBook = new NoteBook();
+            this.renderer = new NoteBookRenderer();
         }
 
-        /// <summary>Gets the instance of NoteBookService class.</summary>
-        /// <value>The instance.</value>
+        /// <summary>Gets the Instance of NoteBookService class.</summary>
+        /// <value>The Instance.</value>
         public static NoteBookService Instance
         {
             get => instance;
@@ -50,29 +53,10 @@ namespace Notebook.Part1
         /// <summary>Sorts the note book.</summary>
         public void SortNoteBook() => this.noteBook.Sort();
 
-        /// <summary>Renders note with the specified number to the console.</summary>
-        /// <param name="noteNumber">The note number.</param>
-        public void Render(int noteNumber)
-        {
-            Console.WriteLine($"Note #{noteNumber}");
-            Console.WriteLine(this[noteNumber].ToString());
-        }
+        public void RenderNote(int pos) => this.renderer.RenderNotes(this.noteBook, pos);
 
-        /// <summary>Renders note with the specified numbers to the console.</summary>
-        /// <param name="noteNumbers">The note numbers.</param>
-        public void Render(params int[] noteNumbers)
-        {
-            for (int i = 0; i < noteNumbers.Length; i++)
-            {
-                Console.WriteLine($"Note #{noteNumbers[i]}");
-                Console.WriteLine(this[noteNumbers[i]].ToString());
-            }
-        }
+        public void RenderNotes(params int[] positions) => this.renderer.RenderNotes(this.noteBook, positions);
 
-        /// <summary>Renders all the notes in notebook to the console.</summary>
-        public void Render()
-        {
-            Console.WriteLine(this.noteBook.ToString());
-        }
+        public void RenderNoteBook() => this.renderer.RenderNoteBook(this.noteBook);
     }
 }

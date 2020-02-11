@@ -6,9 +6,9 @@ using System.Text;
 
 namespace Notebook.Part1
 {
-    public class NoteBook
+    internal class NoteBook
     {
-        private List<Note> noteList;
+        private readonly List<Note> noteList;
 
         /// <summary>Initializes a new instance of the <see cref="NoteBook"/> class.</summary>
         public NoteBook()

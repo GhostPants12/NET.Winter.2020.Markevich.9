@@ -18,52 +18,6 @@ namespace NoteBookTest
         }
 
         [Test]
-        public void NoteBookTests_AllMethods()
-        {
-            Note firstNote = new Note("123");
-            Note secondNote = new Note("123");
-            Note thirdNote = new Note("123");
-            NoteBook noteBook = new NoteBook();
-            noteBook.Add(firstNote);
-            noteBook.Add(secondNote);
-            noteBook.Add(thirdNote);
-            noteBook.Sort();
-            NoteBook expected = new NoteBook();
-            expected.Add(thirdNote);
-            expected.Add(secondNote);
-            expected.Add(firstNote);
-            bool notesAreEqual = true;
-            for (int i = 0; i < 3; i++)
-            {
-                if (!(noteBook[i].Equals(expected[i])))
-                {
-                    notesAreEqual = false;
-                }
-            }
-
-            Assert.IsTrue(notesAreEqual);
-            expected.Remove(firstNote);
-            noteBook.Remove(firstNote);
-            for (int i = 0; i < 2; i++)
-            {
-                if (!(noteBook[i].Equals(expected[i])))
-                {
-                    notesAreEqual = false;
-                }
-            }
-
-            Assert.IsTrue(notesAreEqual);
-            expected.RemoveAt(1);
-            noteBook.RemoveAt(1);
-            if (!(noteBook[0].Equals(expected[0])))
-            {
-                notesAreEqual = false;
-            }
-
-            Assert.IsTrue(notesAreEqual);
-        }
-
-        [Test]
         public void NoteBookServiceTests()
         {
             Note firstNote = new Note("123");
