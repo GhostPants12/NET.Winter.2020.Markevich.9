@@ -8,8 +8,6 @@ namespace Notebook.Part1
     {
         private readonly NoteRenderer noteRenderer = new NoteRenderer();
 
-        public void RenderNote(Note note) => this.noteRenderer.RenderNote(note);
-
         /// <summary>Renders the notes to the console.</summary>
         /// <param name="noteBook">The notebook to take notes from.</param>
         /// <param name="numbers">The numbers of notes to render.</param>
