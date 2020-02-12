@@ -1,3 +1,5 @@
+using System;
+using Moq;
 using Notebook.Part1;
 using NUnit.Framework;
 
@@ -31,6 +33,16 @@ namespace NoteBookTest
             NoteBookService.Instance.RemoveNote(secondNote);
             NoteBookService.Instance.AddNote(thirdNote);
             Assert.AreEqual(true, NoteBookService.Instance[0].Equals(thirdNote));
+        }
+
+        [Test]
+        public void IViewBehaviourTests()
+        {
+            var mockViewer = new Mock<IView>();
+            mockViewer.Setup(foo => foo.Render(It.IsAny<string>())).Verifiable();
+            IView viewer = mockViewer.Object;
+            viewer.Render("abc");
+            mockViewer.Verify(foo => foo.Render("abc"), Times.Exactly(1));
         }
     }
 }
